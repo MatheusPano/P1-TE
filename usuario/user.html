@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuario</title>
+</head>
+<style>
+    body{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #232323;
+    color: aliceblue;
+    display: flex;
+    flex-direction: column;
+    width: 99%;
+    justify-content: center;
+    align-items: center;
+}
+
+.title{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    align-items: baseline;
+    justify-content: center;
+}
+
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    margin-top: 50px;
+}
+
+.row{
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    align-items: baseline;
+    gap: 10px;
+}
+.back-button{
+    margin-top: 200px;
+    border: 1px solid aliceblue;
+    color: aliceblue;
+    text-decoration: none;
+    border-radius: 10px;
+    padding: 20px 50px;
+}
+</style>
+<body>
+    <div class="title">
+        <h2>Olá,</h2>
+        <h1>$Nome</h1>
+    </div>
+    <h3>Aqui estão os dados da sua conta</h3>
+    <br>
+    <br>
+    <br>
+    <div class="wrapper">
+        <div class="row">
+            <h2>Nome: </h2>
+            <p>$NOME</p>
+        </div>
+        <div class="row">
+            <h2>Email: </h2>
+            <p>$EMAIL</p>
+        </div>
+        <div class="row">
+            <h2>Telefone: </h2>
+            <p>$TELEFONE</p>
+        </div>
+        <div class="row">
+            <h2>Sexo: </h2>
+            <p>$SEXO</p>
+        </div>
+        <div class="row">
+            <h2>Data Nascimento: </h2>
+            <p>$DT_NASC</p>
+        </div>
+        <div class="row">
+            <h2>Data Criação: </h2>
+            <p>$DT_CREATE</p>
+        </div>
+        <div class="row">
+            <h2>Senha: </h2>
+            <p>$SENHA</p>
+        </div>
+    </div>
+    <a class="back-button" href="../menu/menu.html">Voltar</a>
+</body>
+</html>

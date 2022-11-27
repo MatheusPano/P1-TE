@@ -4,15 +4,47 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
+        <title>Menu</title>
         <link rel="stylesheet" href="style.css" />
     </head>
+    <style>
+        body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #232323;
+    color: aliceblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 10vw;
+    height: 10vh;
+    transform: translateY(-50%);
+}
+
+.opcao{
+    text-align: center;
+    border: 1px solid aliceblue;
+    border-radius: 10px;
+    padding: 15px 30px;
+    color: aliceblue;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+
+    </style>
     <body>
         <div class="content">
             <a class="opcao" href="">Murais</a>
-            <a class="opcao" href="">Usuario</a>
+            <a class="opcao" href="../usuario/user.html">Usuario</a>
             <a class="opcao" href="">Exportar Dados</a>
-            <a class="opcao" href="">Sobre</a>
+            <a class="opcao" href="../sobre/sobre.html">Sobre</a>
         </div>
     </body>
 </html>
