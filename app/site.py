@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def login():
-    return render_template("sobre.html")
+    return render_template('login.html')
 
 @app.route("/cadastro")
 def cadastro():
