@@ -14,10 +14,10 @@ cursor = conexao.cursor()
 
 # CREATE USER
 
-def create_user(usuario, senha, email, telefone, sexo, data_nascimento):
+def create_user(usuario='', senha='', email='', telefone='', sexo='', data_nascimento=''):
     created = date.today()
 
-    comando = f'INSERT INTO tb_users(usuario, senha, email, telefone, sexo, data_nascimento, created) VALUES ({usuario}, {senha}, {email}, {telefone}, {sexo}, {data_nascimento}, {created});'
+    comando = f'INSERT INTO tb_users (usuario, senha, email, telefone, sexo, data_nascimento, created) VALUES ("{usuario}", "{senha}", "{email}", "{telefone}", "{sexo}", "{data_nascimento}", "{created}");'
     cursor.execute(comando)
     conexao.commit() 
 #edita o banco de dados
