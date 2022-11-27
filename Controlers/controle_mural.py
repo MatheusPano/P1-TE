@@ -14,10 +14,10 @@ cursor = conexao.cursor()
 
 # CREATE MURAL
 
-def create_mural(nome):
+def create_mural(nome, id_user):
     created = date.today()
 
-    comando = f'INSERT INTO tb_mural(nome, created) VALUES ("{nome}", "{created}");'
+    comando = f'INSERT INTO tb_mural(nome, created) VALUES ("{nome}", {id_user}, "{created}");'
     cursor.execute(comando)
     conexao.commit() 
 #edita o banco de dados
