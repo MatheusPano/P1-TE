@@ -25,6 +25,8 @@
 
         .mural {
             text-align: center;
+            border: 1px solid aliceblue;
+            border-radius: 10px;
         }
 
         .mural h2 {
@@ -42,12 +44,28 @@
         }
 
         .back-button {
-            margin-top: 200px;
+            margin-top: 70px;
             border: 1px solid aliceblue;
             color: aliceblue;
             text-decoration: none;
             border-radius: 10px;
             padding: 20px 50px;
+        }
+        .fechar {
+            background: transparent;
+            border: none;
+            font-weight: 900;
+            text-align: end;
+            cursor: pointer;
+            font-size: 15px;
+            color: aliceblue;
+            margin-top: 5px;
+            margin-right: 5px;
+        }
+
+        .top {
+            display: flex;
+            flex-direction: row-reverse;
         }
 
         .bottom-page {
@@ -59,7 +77,12 @@
     <body>
         <div class="parent">
             <div class="mural">
-                <a href=""><h2>teste</h2></a>
+                <div class="top">                    
+                    <button class="fechar">X</button>
+                </div>
+                <a href="../lembretes/lembretes.html">
+                    <h2>Teste</h2>
+                </a>
             </div>
         </div>
         <div class="bottom-page">
