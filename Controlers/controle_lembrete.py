@@ -14,10 +14,10 @@ cursor = conexao.cursor()
 
 # CREATE LEMBRETE
 
-def create_lembrete(id_mural, nome, descricao, created):
+def create_lembrete(id_mural, nome, descricao):
     created = date.today()
 
-    comando = f'INSERT INTO tb_lembrete(id_mural, nome, descricao, created) VALUES ({id_mural}, {nome}, {descricao}, {created});'
+    comando = f'INSERT INTO tb_lembrete(id_mural, nome, descricao, created) VALUES ({id_mural}, "{nome}", "{descricao}", "{created}");'
     cursor.execute(comando)
     conexao.commit() 
 #edita o banco de dados
@@ -25,7 +25,7 @@ def create_lembrete(id_mural, nome, descricao, created):
 
 # READ LEMBRETE
 def read_lembrete(id_mural):
-    comando = f'SELECT * FROM tb_lembrete where id_mural= {id}'
+    comando = f'SELECT * FROM tb_lembrete where id_mural= {id_mural}'
     cursor.execute(comando)
     resultado = cursor.fetchall()
     print(resultado)
@@ -36,6 +36,9 @@ def deleta_lembrete(id):
     comando = f'DELETE FROM tb_lembrete WHERE id = {id}'
     cursor.execute(comando)
     conexao.commit()
+
+
+deleta_lembrete(2)
 
 ## Final do codigo
 cursor.close()

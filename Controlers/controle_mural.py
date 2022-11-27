@@ -14,10 +14,10 @@ cursor = conexao.cursor()
 
 # CREATE MURAL
 
-def create_mural(id, nome, created):
+def create_mural(nome):
     created = date.today()
 
-    comando = f'INSERT INTO tb_mural(nome, created) VALUES ({id}, {nome}, {created});'
+    comando = f'INSERT INTO tb_mural(nome, created) VALUES ("{nome}", "{created}");'
     cursor.execute(comando)
     conexao.commit() 
 #edita o banco de dados
@@ -33,9 +33,14 @@ def read_mural(id_mural):
 
 #DELETE MURAL
 def deleta_mural(id):
+    comando = f'DELETE FROM tb_lembrete where id_mural = {id}' 
+    cursor.execute(comando)
     comando = f'DELETE FROM tb_mural WHERE id = {id}'
     cursor.execute(comando)
     conexao.commit()
+
+
+create_mural('Faculdade')
 
 ## Final do codigo
 cursor.close()
