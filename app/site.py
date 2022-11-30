@@ -60,7 +60,6 @@ def cadastro():
     dt_nasc = request.form.get("data")
     senha = request.form.get("senha")
     
-    cu.create_user(nome, senha ,email, tel, genero, dt_nasc)
 
     return redirect('menu/menu.html')
 
