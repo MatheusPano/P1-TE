@@ -122,7 +122,17 @@ legend {
     </style>
     <body>
         <div class="box">
-            <form action="">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul id="messages" class="list-unstyled">
+                    {% for message in messages %}
+                        <li class="alert alert-success">{{ message }}</li>
+                    {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+
+            <form action="{{ url_for('autenticar') }}", method="post">
                 <fieldset>
                     <legend><b>Login</b></legend>
                     <br />
@@ -130,11 +140,11 @@ legend {
                     <div class="inputBox">
                         <input
                             type="text"
-                            name="email"
-                            id="email"
+                            name="nome"
+                            id="nome"
                             class="inputUser"
                             required />
-                        <label class="labelInput" for="email">E-mail</label>
+                        <label class="labelInput" for="nome">Nome</label>
                     </div>
                     <br />
                     <br />

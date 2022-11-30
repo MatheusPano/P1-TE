@@ -1,9 +1,9 @@
-from datetime import date
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
 
 
 app = Flask(__name__)
+app.secret_key = 'bdpython'
 
 app.config['SQLALCHEMY_DATABASE_URI'] = \
     '{SGBD}://{usuario}:{senha}@{servidor}/{database}'.format(
@@ -46,6 +46,21 @@ class Lembretes(db.Model):
 @app.route("/login")
 def login():
     return render_template('login/login.html')
+
+
+@app.route('/autenticar', methods=['POST',])
+def autenticar():
+    usuaario = User.query.filter_by(usuario=request.form['nome']).first()
+    if usuaario:
+        if request.form['senha'] == usuaario.senha:
+            session['usuario_logado'] = usuaario.usuario
+            flash(usuaario.usuario + ' logado com sucesso!')
+            return redirect(url_for('menu'))
+    else:
+        flash('Usuário não logado.')
+        return redirect(url_for('login'))
+
+
 
 @app.route('/cadastro')
 def cadastro():
