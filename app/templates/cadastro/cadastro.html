@@ -105,8 +105,20 @@ legend{
 }
 </style>
 <body>
+
     <div class="box">
-        <form action="" method="post">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul id="messages" class="list-unstyled">
+                {% for message in messages %}
+                    <li class="alert alert-success">{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        {% block conteudo %}
+        <form action="{{ url_for('criarUsuario') }}" method="post">
             <fieldset> 
                 <legend><b>Cadastro</b></legend> 
             <br>
@@ -120,27 +132,6 @@ legend{
                 <input type="text" name="email" id="email" class="inputUser" required>
                 <label class="labelInput" for="email">E-mail</label>
             </div>
-            <br>
-            <br>
-            <div class="inputBox">
-                <input type="tel" name="telefone" id="telefone" class="inputUser" required>
-                <label class="labelInput" for="telefone">Telefone</label>
-            </div>
-            <br>
-            <p>Sexo:</p>
-            <input type="radio" id="feminino" name="genero" value="feminino" required>
-            <label for="feminino">Feminino</label>
-            <br>
-            <input type="radio" id="masculino" name="genero" value="masculino" required>
-            <label for="masculino">Masculino</label>
-            <br>
-            <input type="radio" id="outro" name="genero" value="outro" required>
-            <label for="outro">Outro</label>
-            <br>
-            <br>
-                <label for="data"> <b>Data de Nascimento:</b> </label>
-                <input type="date" name="data" id="data" required>
-
             <br>
             <br>
             <div class="inputBox">
@@ -158,6 +149,7 @@ legend{
 
         </fieldset>
         </form>
+        {% endblock %}
     </div>
 </body>
 </html>

@@ -1,5 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for
+from datetime import date
+from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
+
+
 app = Flask(__name__)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = \
@@ -18,10 +21,6 @@ class User(db.Model):
     usuario = db.Column(db.String(45), nullable=False)
     senha = db.Column(db.String(45), nullable=False)
     email = db.Column(db.String(100), nullable=False)
-    telefone = db.Column(db.String(15), nullable=False)
-    sexo = db.Column(db.String(1), nullable=False)
-    data_nascimento = db.Column(db.Date, nullable=False)
-    created = db.Column(db.Date, nullable=False)
 
     def __repr__(self):
         return '<Name %r>' % self.name
@@ -29,40 +28,48 @@ class User(db.Model):
 
 class Murais(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True )
-    nome = db.Column(db.String(45), nullable=False)
-    created = db.Column(db.Date, nullable=False)
-    tblembretes = db.relationship('Lembretes', backref='murais', lazy=True) 
+    nome = db.Column(db.String(45), nullable=False) 
 
     def __repr__(self):
         return '<Name %r>' % self.name
 
 class Lembretes(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True )
-    id_mural = db.Column(db.Integer, db.ForeignKey('mural.id'), nullable=False)
     nome = db.Column(db.String(45), nullable=False)
     descricao = db.Column(db.String(200), nullable=False)
-    created = db.Column(db.Date, nullable=False)
 
+    #Cria e retorna uma string para nois, quando a classe é acessada em modo interativo.
     def __repr__(self):
         return '<Name %r>' % self.name
 
 
-@app.route("/")
+@app.route("/login")
 def login():
     return render_template('login/login.html')
 
-@app.route("/cadastro", methods=['POST',])
+@app.route('/cadastro')
 def cadastro():
-    nome=request.form.get("nome")
-    email = request.form.get("email")
-    tel = request.form.get("telefone")
-    genero = request.form.get("genero")
-    dt_nasc = request.form.get("data")
-    senha = request.form.get("senha")
-    
-    cu.create_user(nome, senha ,email, tel, genero, dt_nasc)
+    return render_template('cadastro/cadastro.html')
 
-    return redirect('menu/menu.html')
+
+@app.route("/criarUsuario", methods=['POST',])
+def criarUsuario():
+
+    nome=request.form['nome']
+    email = request.form['email']
+    senha = request.form['senha']
+    
+    usuaario = User.query.filter_by(usuario=nome).first()
+
+    if usuaario:
+        flash('Usuário Já Existente!')
+        return redirect(url_for('login'))
+
+    novo_usuario = User(usuario=nome, senha=senha, email=email)
+    db.session.add(novo_usuario)
+    db.session.commit()
+
+    return redirect(url_for('login'))
 
 @app.route("/menu")
 def menu():

@@ -27,40 +27,30 @@ cursor.execute("USE `bd_python`;")
 
 TABELAS = {}
 TABELAS['User'] = ('''
-    CREATE TABLE `tb_users` (
+    CREATE TABLE `user` (
     `id` int NOT NULL AUTO_INCREMENT,
     `usuario` varchar(45) DEFAULT NULL,
     `senha` varchar(45) DEFAULT NULL,
     `email` varchar(100) DEFAULT NULL,
-    `telefone` varchar(15) DEFAULT NULL,
-    `sexo` varchar(1) DEFAULT NULL,
-    `data_nascimento` date DEFAULT NULL,
-    `created` date DEFAULT NULL,
     PRIMARY KEY (`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 ''')
 
-TABELAS['Murais'] = ('''
-    CREATE TABLE `tb_mural` (
+TABELAS['Mural'] = ('''
+    CREATE TABLE `mural` (
     `id` int NOT NULL AUTO_INCREMENT,
     `nome` varchar(45) DEFAULT NULL,
-    `created` date DEFAULT NULL,
     PRIMARY KEY (`id`)
     ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 ''')
 
-TABELAS['Lembretes'] = ('''
-    CREATE TABLE `tb_lembrete` (
+TABELAS['Lembrete'] = ('''
+    CREATE TABLE `lembrete` (
     `id` int NOT NULL AUTO_INCREMENT,
-    `id_mural` int NOT NULL,
     `nome` varchar(45) DEFAULT NULL,
-    `descricao` varchar(200) DEFAULT NULL,
-    `created` date DEFAULT NULL,
-    PRIMARY KEY (`id`),
-    KEY `fk_id_mural_idx` (`id_mural`),
-    CONSTRAINT `fk_id_mural` FOREIGN KEY (`id_mural`) REFERENCES `tb_mural` (`id`)
+    `descricao` varchar(100) DEFAULT NULL,
+    PRIMARY KEY (`id`)
     ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
 ''')
 
 
@@ -77,6 +67,14 @@ for tabela_nome in TABELAS:
     else:
         print('OK')
 
+
+def read_user(id):
+    comando = f'SELECT * FROM tb_users where id= {id}'
+    cursor.execute(comando)
+    resultado = cursor.fetchall()
+    print(resultado)
+
+'''
 #CRUD
 
 # CREATE USER
@@ -89,11 +87,7 @@ def create_user(usuario='', senha='', email='', telefone='', sexo='', data_nasci
     conexao.commit() 
 
 # READ USER
-def read_user(id):
-    comando = f'SELECT * FROM tb_users where id= {id}'
-    cursor.execute(comando)
-    resultado = cursor.fetchall()
-    print(resultado)
+
 
 
 #CRUD
@@ -147,7 +141,7 @@ def deleta_mural(id):
     comando = f'DELETE FROM tb_mural WHERE id = {id}'
     cursor.execute(comando)
     conexao.commit()
-
+'''
 
 ## Final do codigo
 cursor.close()
