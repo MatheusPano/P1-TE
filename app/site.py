@@ -49,17 +49,7 @@ def login():
 
 @app.route('/cadastro')
 def cadastro():
-<<<<<<< HEAD
-    nome=request.form.get("nome")
-    email = request.form.get("email")
-    tel = request.form.get("telefone")
-    genero = request.form.get("genero")
-    dt_nasc = request.form.get("data")
-    senha = request.form.get("senha")
-    
-=======
     return render_template('cadastro/cadastro.html')
->>>>>>> 918f39806c84d5d3cbeb442a378ab5127c9dc16d
 
 
 @app.route("/criarUsuario", methods=['POST',])
