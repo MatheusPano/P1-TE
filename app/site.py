@@ -1,7 +1,10 @@
 import json
+import os
+import zipfile
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
-
+import mysql.connector
+from mysql.connector import errorcode
 
 
 app = Flask(__name__)
@@ -177,29 +180,65 @@ def deletarLembrete(idLembrete):
 
 @app.route("/user")
 def users():
-    usuarioAtual = session['usuario_logado']
-    flash('Olá ',usuarioAtual)
-    return render_template('user/user.html')
+    listausuario = User.query.order_by(User.id)
+    return render_template('user/user.html', usuario=listausuario)
+
 
 @app.route("/export_op")
-def exportar(conexao,id):
+def export_op():
     if 'usuario_logado' not in session or session['usuario_logado'] == None:
         return redirect(url_for('login'))
-    
+    return render_template('export_options/export_op.html')
 
-    dados = request.form['']
+@app.route("/exportaDado", methods=['POST',])
+def exportaDado():
+    
+    try:
+        conexao = mysql.connector.connect(
+            host='localhost',
+            user='root',
+            password='mysql'
+        )
+    except mysql.connector.Error as err:
+        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            print('Existe algo errado no nome de usuário ou senha')
+        else:
+            print(err)
+
+
+    escolha = request.form['eijo']
+    
+    tipo = ''
+    if escolha == '1':
+        tipo = 'user'
+    elif escolha == '2':
+        tipo = 'mural'
+    elif escolha == '3':
+        tipo = 'lembrete'
+
 
     cursor = conexao.cursor(dictionary=True)
 
-    cursor.execute("exportando...")
+    cursor.execute("USE `bd_python`")
 
-    cursor.execute('''SELECT * FROM {id}'''.format())
+    cursor.execute('''SELECT *
+        FROM {0}'''.format(tipo))
 
     select = cursor.fetchall()
 
     with open("export.json", "w") as outfile:
         json.dump(select, outfile)
-joao = 3
+
+    zip_file = zipfile.ZipFile('{0}.zip'.format(tipo), "w")
+    zip_file.write('export.json', compress_type=zipfile.ZIP_DEFLATED)
+    zip_file.close()
+
+    os.remove("export.json")
+    flash("Arquivo zip baixado!")
+
+    return redirect('export_op')
+
+
 if __name__ == "__main__":
     app.run(debug=True)
 
