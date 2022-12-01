@@ -1,3 +1,4 @@
+import json
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
 
@@ -176,10 +177,29 @@ def deletarLembrete(idLembrete):
 
 @app.route("/user")
 def users():
-    listausuario = User.query.order_by(User.id)
-    return render_template('user/user.html', usuario=listausuario)
+    usuarioAtual = session['usuario_logado']
+    flash('Olá ',usuarioAtual)
+    return render_template('user/user.html')
 
+@app.route("/export_op")
+def exportar(conexao,id):
+    if 'usuario_logado' not in session or session['usuario_logado'] == None:
+        return redirect(url_for('login'))
+    
 
+    dados = request.form['']
+
+    cursor = conexao.cursor(dictionary=True)
+
+    cursor.execute("exportando...")
+
+    cursor.execute('''SELECT * FROM {id}'''.format())
+
+    select = cursor.fetchall()
+
+    with open("export.json", "w") as outfile:
+        json.dump(select, outfile)
+joao = 3
 if __name__ == "__main__":
     app.run(debug=True)
 
