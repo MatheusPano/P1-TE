@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash, ses
 from flask_sqlalchemy import SQLAlchemy
 
 
+
 app = Flask(__name__)
 app.secret_key = 'bdpython'
 
@@ -64,7 +65,7 @@ def autenticar():
             flash(usuaario.usuario + ' logado com sucesso!')
             return redirect(url_for('menu'))
     else:
-        flash('Usuário não logado.')
+        flash('Usuario ou senha incorreto.')
         return redirect(url_for('login'))
 
 
@@ -175,8 +176,13 @@ def deletarLembrete(idLembrete):
 
 @app.route("/user")
 def users():
+    usuarioAtual = session['usuario_logado']
+    flash('Olá ',usuarioAtual)
     return render_template('user/user.html')
 
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+
+
