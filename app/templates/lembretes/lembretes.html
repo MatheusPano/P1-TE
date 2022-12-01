@@ -104,51 +104,32 @@
 
     </style>
     <body>
+        {% block conteudo %}
         <div class="top-page">
-            <form id="form-lembrete" action="none" method="post">
+            
+            <form id="form-lembrete" action="{{ url_for('criarLembrete') }}" method="post">
                 <input type="text" name="lembrete-title" id="title-lembrete" class="inputUser" placeholder="Titulo do Lembrete" required />
-                <input type="text" name="lembrete-title" id="text-lembrete" class="inputUser" placeholder="texto do Lembrete" required />
+                <input type="text" name="lembrete-text" id="text-lembrete" class="inputUser" placeholder="texto do Lembrete" required />
+                <input type="submit" id="botaolembrete" value="Adicionar Lembrete"></input>
             </form>
-            <button id="botaolembrete" onclick="addLembrete()">
-                Adicionar lembrete
-            </button>
-            <a class="back-button" href="/menu">Voltar</a>
+            <a class="back-button" href="/murais">Voltar</a>
+            
+            
         </div>
-        <div class="parent" id="grid"></div>
-    </body>
-    <script>
-        let index = 0;
-        let indexDel;
-        function delLembrete(index){
-            indexDel = index;
-            console.log("Vai excluir: ",indexDel);
-            document.getElementById(`${indexDel}`).remove()
-        }
-        function addLembrete() {
-            index += 1;
-            console.log("Adicionando: ", index);
-            let titleLembrete = document.getElementById("title-lembrete").value;
-            let textLembrete = document.getElementById("text-lembrete").value;
-            let lembrete = `
-            <div class="lembrete" id="${index}">
+        {% endblock %}
+        <div class="parent" id="grid">
+            {% for lembrete in lembretes %}
+            <div class="lembrete">
                 <div class="top">
-                    <button class="fechar" onclick="delLembrete(${index})">X</button>
+                    <a class="fechar" href={{ url_for('deletarLembrete', idLembrete=lembrete.id) }} >X</a>
                 </div>
-                <h2>${titleLembrete}</h2>
-                <p>${textLembrete}</p>
+                <h2>{{lembrete.nome}}</h2>
+                <p>{{lembrete.descricao}}</p>
             </div>
-            `;
-            if (titleLembrete.length > 0) {
-                // Adicionar Mural
-                document.getElementById("grid").innerHTML += lembrete;
-                document.getElementById("title-lembrete").value = "";
-                document.getElementById("text-lembrete").value = ""
-            } else {
-                console.log("NADA");
-                alert("Por favor digite um nome válido!");
-            }
-        }
-    </script>
+            {% endfor %}
+        </div>
+    </body>
+
 </html>
 
  

@@ -110,45 +110,29 @@
 
     </style>
     <body>
+        {% block conteudo %}
         <div class="top-page">
-            <form id="form-mural" action="none" method="post">
+            <form id="form-mural" action="{{ url_for('criarMural') }}" method="post">
                 <input type="text" name="mural" id="input-mural" class="inputUser" placeholder="Nome do Mural" required>
+                <input type="submit" id="botaoMural" value="Adicionar Mural"></input>
             </form>
-            <button id="botaoMural" onclick="addMural()">Adicionar Mural</button>
+            
             <a class="back-button" href="/menu">Voltar</a>
+
         </div>
-        <div class="parent" id="grid"></div>
-    </body>
-    <script>
-        let index = 0;
-        let indexDel;
-        function delMural(index){
-            indexDel = index;
-            console.log("Vai excluir: ",indexDel);
-            document.getElementById(`${indexDel}`).remove()
-        }
-        function addMural() {
-            index += 1;
-            console.log("Adicionando: ",index);
-            let titleMural = document.getElementById("input-mural").value;
-            let Mural = `
-            <div class="mural" id="${index}">
+        {% endblock %}
+        <div class="parent" id="grid">
+            {% for mural in murais %}
+            <div class="mural">
                 <div class="top">
-                    <button onclick="delMural(${index})" class="fechar">X</button>
+                    <a class="fechar" href={{ url_for('deletarMural', idMural=mural.id) }}>X</a>
                 </div>
                 <a href="/lembretes">
-                    <h2>${titleMural}</h2>
+                    <h2>{{mural.nome}}</h2>
                 </a>
             </div>
-            `;
-            if (titleMural.length > 0) {
-                // Adicionar Mural
-                document.getElementById("grid").innerHTML += Mural;
-                document.getElementById("input-mural").value = ""
-            } else {
-                console.log("NADA");
-                alert("Por favor digite um nome válido!");
-            }
-        }
-    </script>
+            {% endfor %}
+        </div>
+    </body>
+    
 </html>
