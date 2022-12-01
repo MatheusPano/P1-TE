@@ -183,9 +183,6 @@ def users():
 
 if __name__ == "__main__":
     app.run(debug=True)
-<<<<<<< HEAD
 
 
 
-=======
->>>>>>> d97d3fed435f7a108df1d4d2f134bb8f2665ac90
