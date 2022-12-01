@@ -23,7 +23,9 @@ body {
     gap: 25px;
 }
 
-#form-export button{
+#form-export input{
+    display: flex;
+    flex-direction: row;
     text-align: center;
     border: 1px solid aliceblue;
     border-radius: 10px;
@@ -34,12 +36,22 @@ body {
     background: transparent;
     cursor: pointer;
 }
+
+.row{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15px;
+}
     </style>
     <body>
-        <form id="form-export" action="" method="post">
-            <button>Usuario</button>
-            <button>Murais</button>
-            <button>Lembretes</button>
+        <form id="form-export" action="/" method="post">
+            <div class="row">
+                <h1>Digite qual quer exportar</h1>
+                <h3>1 - Usuario | 2 - Murais | 3 - Lembretes</h3>
+            </div>
+            <input type="text" id="tipo" name="text-tipo" placeholder="Digite o numero da sua escolha">
+            <input type="submit" value="Exportar">
         </form>
     </body>
 </html>
