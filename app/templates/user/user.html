@@ -49,6 +49,7 @@
     padding: 20px 50px;
 }
 </style>
+{% block conteudo %}
 <body>
     <div class="title">
     </div>
@@ -57,19 +58,26 @@
     <br>
     <br>
     <div class="wrapper">
+        {% for usuario in usuario %}
+        <div class="row">
+            <h1>Olá {{usuario.usuario}}! Bem-vindo!</h1>
+        </div>
         <div class="row">
             <h2>Nome: </h2>
-            <p>$NOME</p>
+            <p>{{usuario.usuario}}</p>
         </div>
         <div class="row">
             <h2>Email: </h2>
-            <p>$EMAIL</p>
+            <p>{{usuario.email}}</p>
         </div>
         <div class="row">
             <h2>Senha: </h2>
-            <p>$SENHA</p>
+            <p>{{usuario.senha}}</p>
+            
         </div>
+        {% endfor %}
     </div>
     <a class="back-button" href="/menu">Voltar</a>
 </body>
+{% endblock %}
 </html>

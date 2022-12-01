@@ -176,9 +176,8 @@ def deletarLembrete(idLembrete):
 
 @app.route("/user")
 def users():
-    usuarioAtual = session['usuario_logado']
-    flash('Olá ',usuarioAtual)
-    return render_template('user/user.html')
+    listausuario = User.query.order_by(User.id)
+    return render_template('user/user.html', usuario=listausuario)
 
 
 if __name__ == "__main__":
